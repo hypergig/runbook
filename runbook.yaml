@@ -1,0 +1,10 @@
+name: Example runbook
+description: Just an example of what a runbook might look like
+steps:
+  - name: Brew Update
+    description: Update all my brews
+    exec:
+      cmd: brew
+      args:
+        - bundle
+        - --no-lock
