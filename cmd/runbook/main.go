@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/hypergig/runbook/internal/schema"
+	"github.com/hypergig/runbook/internal/modules/steps"
 	"github.com/urfave/cli/v3"
 	"gopkg.in/yaml.v3"
 )
@@ -22,16 +22,12 @@ func main() {
 				return err
 			}
 
-			var runbook schema.Step
+			var runbook steps.Step
 			if err := yaml.Unmarshal(raw, &runbook); err != nil {
 				return err
 			}
 
-			for _, step := range *runbook.Steps {
-				slog.InfoContext(ctx, "starting step", slog.Any("step", step))
-			}
-
-			return nil
+			return runbook.Run(ctx)
 		},
 		ArgsUsage: "[runbook.yaml]",
 		Arguments: []cli.Argument{
