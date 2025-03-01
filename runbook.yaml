@@ -1,10 +1,22 @@
 name: Example runbook
 description: Just an example of what a runbook might look like
 steps:
+  - name: List my directory
+    description: List the files in the current directory
+    exec:
+      cmd: ls
+      args:
+        - -l
+
   - name: Brew Update
     description: Update all my brews
     exec:
+      env:
+        # omit value to get from environment
+        - HOME
       cmd: brew
       args:
         - bundle
         - --no-lock
+        - --file
+        - ../workstation/Brewfile
